@@ -1,0 +1,15 @@
+{
+  "name": "express-init",
+  "version": "1.0.0",
+  "description": "express js initialization",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "suraj nair",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
