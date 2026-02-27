@@ -1,9 +1,16 @@
-const https = require("http");
-
+const http = require("http");
 const express = require("express");
 
 const app = express();
 
-const server = https.createServer(app);
+app.use((req, res, next) => {
+  console.log("inside the server");
+  next();
+});
+
+app.use((req, res, next) => {
+  res.send("<h1>Hello from express</h1>");
+});
+const server = http.createServer(app);
 
 server.listen(3000);
