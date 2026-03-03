@@ -4,6 +4,7 @@ const shoupRoutes = require("./routes/shop");
 const path = require("path");
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(adminRoutes);
 app.use(shoupRoutes);
 
