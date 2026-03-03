@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Users Page</title>
+
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+
+      body {
+        background-color: #f4f6f9;
+      }
+
+      /* Navbar */
+      header {
+        background-color: #111;
+        padding: 1rem 2rem;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      nav a:hover {
+        color: #00bcd4;
+      }
+
+      /* Users List */
+      .user-list {
+        max-width: 600px;
+        margin: 3rem auto;
+        list-style: none;
+      }
+
+      .user-list li {
+        background: white;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: 0.3s;
+      }
+
+      .user-list li:hover {
+        transform: translateY(-3px);
+      }
+      nav {
+        max-width: 1000px;
+        margin: auto;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #e5e7eb;
+        font-size: 1rem;
+        font-weight: 500;
+        padding: 0.4rem 0.6rem;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+
+      nav a:hover {
+        background-color: #374151;
+        color: #ffffff;
+      }
+
+      /* Active link example */
+      nav a.active {
+        background-color: #00bcd4;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/users" class="active">Users</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <ul class="user-list">
+      <li>Khal Nayak</li>
+      <li>Rude Boy Bass</li>
+      <li>Skrillex</li>
+    </ul>
+  </body>
+</html>
