@@ -9,7 +9,8 @@ const router = express.Router();
 router.get("/", shopController.getIndex);
 
 router.get("/products", shopController.getProducts);
-//have to put the more specific routes before
+
+//have to put the more specific routes before the more general ones, otherwise the more general ones will catch the request first and the more specific ones will never be reached
 router.get("/products/:productId", shopController.getProduct);
 
 router.get("/cart", shopController.getCart);
