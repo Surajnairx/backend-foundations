@@ -14,11 +14,12 @@ exports.getProduct = (req, res, next) => {
   const productId = req.params.productId;
   console.log(productId);
   Product.findById(productId, (product) => {
-    // res.render("shop/product-detail", {
-    //   product: product,
-    //   pageTitle: product.title, 
-// });
-console.log(product);
+    console.log(product.length);
+    res.render("shop/product-detail", {
+      product: product,
+      pageTitle: product.title, 
+      path: "/products",
+});
   });
 };
 
