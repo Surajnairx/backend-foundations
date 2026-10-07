@@ -1,6 +1,22 @@
 <%- include('../includes/head.ejs') %>
-    </head>
+</head>
 
-    <body>
-        <%- include('../includes/navigation.ejs') %>
-        <%- include('../includes/end.ejs') %>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+
+  <main>
+    <% if (products.length > 0) { %>
+    <% for (let product of products) { %>
+    <ul>
+      <li>
+        <p><strong><%= product.productData.title %></strong> - Quantity: <%= product.qty %></p>
+      </li>
+    </ul>
+    <% } %>
+    <p><strong>Total Price: $<%= totalPrice %></strong></p>
+    <% } else { %>
+    <p>Your cart is currently empty.</p>
+    <% } %>
+
+  </main>
+  <%- include('../includes/end.ejs') %>
