@@ -10,6 +10,13 @@
     <ul>
       <li>
         <p><strong><%= product.productData.title %></strong> - Quantity: <%= product.qty %></p>
+        <form action="/cart-delete-item/<%= product.productData.id %>" method="POST">
+          <%
+
+%>
+          <button type="submit">Delete</button>
+        </form>
+
       </li>
     </ul>
     <% } %>
