@@ -1,7 +1,7 @@
 const db = require("../util/db");
 const Cart = require("./cart");
 
-const getProductsFromFile = () => {
+const getProductsFromDb = () => {
   db.execute('SELECT * FROM `node-complete`.products').then(([rows]) => {
     console.log(rows);
   }).catch(err => {
@@ -19,7 +19,7 @@ module.exports = class Product {
   }
 
   save() {
-    
+    db.execute('INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)', [this.title, this.price, this.imageUrl, this.description])
     
   }
 
@@ -32,14 +32,16 @@ module.exports = class Product {
   }
 
   static deleteById(id) {
-    getProductsFromFile(products => {
+    getProductsFromDb().then(([products])=>{
       const updatedProducts = products.filter(prod => prod.id !== id);
-      fs.writeFile(p, JSON.stringify(updatedProducts), (err) => {
-        if(!err) {
-          const product = products.find(prod => prod.id === id);
-          Cart.deleteProduct(id, product.price);
-        }
-      });
-    });
+      db.execute('DELETE FROM products WHERE id = ?', [id]).then(() => {
+        const product = products.find(prod => prod.id === id);
+        Cart.deleteProduct(id, product.price);
+      }).catch(err => {
+        console.log(err);
+      }).catch(err => {
+        console.log(err);
+      })
+    })
   }
 };
