@@ -1,47 +1,86 @@
-const db = require("../util/db");
-const Cart = require("./cart");
 
-const getProductsFromDb = () => {
-  db.execute('SELECT * FROM `node-complete`.products').then(([rows]) => {
-    console.log(rows);
-  }).catch(err => {
-    console.log(err);
-  });
-};
+const db = require('../util/db');
+const Cart = require('./cart');
 
 module.exports = class Product {
-  constructor(id,title, imageUrl, description, price) {
-    this.id = id;
-    this.title = title;
-    this.description = description;
-    this.price = price;
-    this.imageUrl = imageUrl;
-  }
 
-  save() {
-    return db.execute('INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)', [this.title, this.price, this.imageUrl, this.description])
-    
-  }
+    constructor(id, title, imageUrl, description, price) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
+        this.description = description;
+        this.price = price;
+    }
 
-  static fetchAll() {
-   return db.execute('SELECT * FROM products')
-  }
+    // Insert new product
+    save() {
+        return db.execute(
+            `INSERT INTO products
+            (title, price, imageUrl, description)
+            VALUES (?, ?, ?, ?)`,
+            [
+                this.title,
+                this.price,
+                this.imageUrl,
+                this.description
+            ]
+        );
+    }
 
-  static findById(id) {
-    
-  }
+    // Update existing product
+    update() {
+        return db.execute(
+            `UPDATE products
+             SET title = ?, price = ?, imageUrl = ?, description = ?
+             WHERE id = ?`,
+            [
+                this.title,
+                this.price,
+                this.imageUrl,
+                this.description,
+                this.id
+            ]
+        );
+    }
 
-  static deleteById(id) {
-    getProductsFromDb().then(([products])=>{
-      const updatedProducts = products.filter(prod => prod.id !== id);
-      db.execute('DELETE FROM products WHERE id = ?', [id]).then(() => {
-        const product = products.find(prod => prod.id === id);
-        Cart.deleteProduct(id, product.price);
-      }).catch(err => {
-        console.log(err);
-      }).catch(err => {
-        console.log(err);
-      })
-    })
-  }
+    // Fetch all products
+    static fetchAll() {
+        return db.execute(
+            'SELECT * FROM products'
+        );
+    }
+
+    // Find product by ID
+    static findById(id) {
+        return db.execute(
+            'SELECT * FROM products WHERE id = ?',
+            [id]
+        );
+    }
+
+    // Delete product by ID
+    static deleteById(id) {
+        return db.execute(
+            'SELECT * FROM products WHERE id = ?',
+            [id]
+        ).then(([rows]) => {
+
+            const product = rows[0];
+
+            if (!product) {
+                return;
+            }
+
+            // Remove product from cart
+            return Cart.deleteProduct(id)
+                .then(() => {
+
+                    // Delete product from database
+                    return db.execute(
+                        'DELETE FROM products WHERE id = ?',
+                        [id]
+                    );
+                });
+        });
+    }
 };
