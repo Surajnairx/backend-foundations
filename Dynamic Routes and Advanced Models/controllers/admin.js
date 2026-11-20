@@ -19,8 +19,8 @@ exports.postAddProduct = (req, res, next) => {
   }).catch(err => {
     console.log(err);
   })
+}
 
-};
 
 exports.getEditProduct = (req, res, next) => {
   const editMode = req.query.edit;
